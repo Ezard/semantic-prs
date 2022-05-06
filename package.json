@@ -18,6 +18,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@conventional-commits/parser": "0.4.1",
+    "conventional-commit-types": "3.0.0",
     "probot": "^11.0.1"
   },
   "devDependencies": {
