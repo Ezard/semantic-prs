@@ -2,7 +2,7 @@
   "name": "semantic-prs",
   "version": "1.0.0",
   "private": true,
-  "description": "A GitHub app to check that pull request titles following the Conventional Commits spec",
+  "description": "A GitHub app to check that pull request titles follow the Conventional Commits spec",
   "author": "Ben Ezard <ezard.ben@gmail.com>",
   "license": "ISC",
   "homepage": "https://github.com/Ezard/semantic-prs",
