@@ -7,9 +7,10 @@
   "license": "ISC",
   "homepage": "https://github.com/Ezard/semantic-prs",
   "keywords": [
-    "probot",
     "github",
-    "probot-app"
+    "pr",
+    "pull-request",
+    "conventional-commits"
   ],
   "scripts": {
     "build": "tsc",
