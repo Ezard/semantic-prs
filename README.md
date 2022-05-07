@@ -39,14 +39,16 @@ anyCommit: <boolean> # default: false
 ```
 
 ```yaml
-types:
+# The values allowed for the "type" part of the PR title/commit message. e.g. for a PR title/commit message of "feat: add some stuff", the type would be "feat"
+types: # default: feat | fix | docs | style | refactor | perf | test | build | ci | chore | revert
   - <string>
   - <string>
   - ...
 ```
 
 ```yaml
-scopes:
+# The values allowed for the "scope" part of the PR title/commit message. e.g. for a PR title/commit message of "feat(awesome-feature): add some stuff", the type would be "awesome-feature"
+scopes: # default: any value
   - <string>
   - <string>
   - ...
