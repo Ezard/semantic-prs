@@ -1,33 +1,69 @@
-# semantic-prs
+# Semantic PRS
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that A GitHub app to check that pull request titles following the Conventional Commits spec
+> A GitHub app to check that pull requests follow the Conventional Commits spec
 
-## Setup
+## Installation
 
-```sh
-# Install dependencies
-npm install
+Install the app from the GitHub Marketplace here: [https://github.com/apps/semantic-prs](https://github.com/apps/semantic-prs)
 
-# Run the bot
-npm start
+## Configuration
+
+By default, no configuration is necessary. The default behaviour is that only the PR title or at least one commit message needs to follow the [Conventional Commits spec](https://www.conventionalcommits.org/en/v1.0.0/)
+
+This can be changed by creating a `semantic.yml` file in your `.github` directory, with any of the following optional settings:
+
+```yaml
+# Enable/disable creation of status checks
+enabled: <boolean> # default: true
 ```
 
-## Docker
-
-```sh
-# 1. Build container
-docker build -t semantic-prs .
-
-# 2. Start container
-docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> semantic-prs
+```yaml
+# Validate the PR title, and ignore all commit messages
+titleOnly: <boolean> # default: false
 ```
 
-## Contributing
+```yaml
+# Validate all commit messages, and ignore the PR title
+commitsOnly: <boolean> # default: false
+```
 
-If you have suggestions for how semantic-prs could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+```yaml
+# Validate the PR title and all commit messages
+titleAndCommits: <boolean> # default: false
+```
 
-For more, check out the [Contributing Guide](CONTRIBUTING.md).
+```yaml
+# If commitsOnly or titleAndCommits is set to true, then only a single commit needs to pass validation instead of every commit
+# If neither of those options are set to true then this option is ignored
+anyCommit: <boolean> # default: false
+```
 
-## License
+```yaml
+types:
+  - <string>
+  - <string>
+  - ...
+```
 
-[ISC](LICENSE) © 2022 Ben Ezard <ezard.ben@gmail.com>
+```yaml
+scopes:
+  - <string>
+  - <string>
+  - ...
+```
+
+```yaml
+# Allow merge commits (e.g. 'Merge branch "master" into fix/delete-all-tests')
+# If neither of commitsOnly or titleAndCommits is set to true then this option is ignored
+allowMergeCommits: <boolean> # default: false
+```
+
+```yaml
+# Allow revert commits (e.g. 'Revert "fix: delete all tests"')
+# If neither of commitsOnly or titleAndCommits is set to true then this option is ignored
+allowRevertCommits: <boolean> # default: false
+```
+
+## Credits
+
+Heavily based on the [Semantic Pull Requests](https://github.com/zeke/semantic-pull-requests) GitHub App created by [@zeke](https://github.com/zeke)
