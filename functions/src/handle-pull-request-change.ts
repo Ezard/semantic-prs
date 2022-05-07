@@ -9,7 +9,9 @@ import { isMessageSemantic } from './is-message-semantic';
 
 type PullRequestPayload = PullRequestOpenedEvent | PullRequestEditedEvent | PullRequestSynchronizeEvent;
 
-async function getCommitMessages(context: Context): Promise<string[]> {
+async function getCommitMessages(
+  context: Context<'pull_request.opened' | 'pull_request.edited' | 'pull_request.synchronize'>,
+): Promise<string[]> {
   const commits = await context.octokit.rest.pulls.listCommits(
     context.repo({
       pull_number: (context.payload as PullRequestPayload).pull_request.number,
@@ -29,7 +31,9 @@ async function checkIfCommitsAreSemantic(
   };
 }
 
-export async function handlePullRequestChange(context: Context) {
+export async function handlePullRequestChange(
+  context: Context<'pull_request.opened' | 'pull_request.edited' | 'pull_request.synchronize'>,
+): Promise<void> {
   const { title, head } = (context.payload as PullRequestPayload).pull_request;
   const config = (await context.config<Config>('semantic.yml', defaultConfig)) as Config;
 
@@ -124,5 +128,5 @@ export async function handlePullRequestChange(context: Context) {
     description: semanticState.getDescription(),
     context: 'Semantic PR',
   };
-  return context.octokit.rest.repos.createCommitStatus(context.repo(status));
+  await context.octokit.rest.repos.createCommitStatus(context.repo(status));
 }

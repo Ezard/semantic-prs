@@ -1,10 +1,9 @@
 {
   "name": "semantic-prs",
-  "version": "1.0.0",
-  "private": true,
+  "version": "0.1.0",
   "description": "A GitHub app to check that pull request titles follow the Conventional Commits spec",
   "author": "Ben Ezard <ezard.ben@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/Ezard/semantic-prs",
   "keywords": [
     "github",
@@ -12,36 +11,47 @@
     "pull-request",
     "conventional-commits"
   ],
+  "main": "lib/index.js",
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "build": "tsc",
-    "start": "probot run ./lib/index.js",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "start:probot": "npm run build && probot run ./lib/app.js",
     "lint": "npm run lint:code && npm run lint:style",
     "lint:code": "eslint src",
     "lint:style": "prettier --check src",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "env-cmd firebase deploy --only functions",
+    "logs": "firebase functions:log"
   },
   "dependencies": {
     "@conventional-commits/parser": "0.4.1",
     "conventional-commit-types": "3.0.0",
+    "firebase-functions": "3.21.0",
     "probot": "12.2.2"
   },
   "devDependencies": {
     "@octokit/webhooks-types": "5.6.0",
     "@types/jest": "27.5.0",
-    "@types/node": "16.11.33",
+    "@types/node": "17.0.31",
     "@typescript-eslint/eslint-plugin": "5.22.0",
     "@typescript-eslint/parser": "5.22.0",
-    "eslint": "8.14.0",
+    "env-cmd": "10.1.0",
+    "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
+    "firebase-functions-test": "0.2.3",
+    "firebase-tools": "10.8.0",
     "jest": "28.1.0",
     "nock": "13.2.4",
     "prettier": "2.6.2",
     "smee-client": "1.2.3",
     "ts-jest": "28.0.1",
     "typescript": "4.6.4"
-  },
-  "engines": {
-    "node": ">= 16"
   }
 }
