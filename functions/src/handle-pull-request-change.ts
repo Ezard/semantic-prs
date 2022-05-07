@@ -124,7 +124,7 @@ export async function handlePullRequestChange(
   const status = {
     sha: head.sha,
     state,
-    target_url: 'https://github.com/probot/semantic-prs',
+    target_url: 'https://github.com/Ezard/semantic-prs',
     description: semanticState.getDescription(),
     context: 'Semantic PR',
   };
