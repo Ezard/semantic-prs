@@ -3,6 +3,17 @@
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint",
       "npm --prefix \"$RESOURCE_DIR\" run build"
+    ],
+    "ignore": [
+      "**/lib/tsconfig.build.tsbuildinfo",
+      "**/node_modules/**",
+      "**/.env*",
+      "**/.eslintrc.js",
+      "**/.gitignore",
+      "**/.prettierrc",
+      "**/jest.config.js",
+      "**/tsconfig*.json",
+      "**/*.pem"
     ]
   },
   "emulators": {
