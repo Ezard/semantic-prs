@@ -1,4 +1,4 @@
-# Semantic PRS
+# Semantic PRs
 
 > A GitHub app to check that pull requests follow the Conventional Commits spec
 
