@@ -21,9 +21,6 @@ export function isMessageSemantic({
     try {
       commit = toConventionalChangelogFormat(parser(message));
     } catch (err) {
-      if (process.env.NODE_ENV !== 'test') {
-        console.error(err);
-      }
       return false;
     }
 
