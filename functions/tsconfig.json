@@ -17,10 +17,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src"
-  ],
-  "exclude": [
-    "*.spec.ts"
+    "src",
+    ".eslintrc.js"
   ],
   "compileOnSave": false
 }
