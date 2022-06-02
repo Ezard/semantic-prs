@@ -66,6 +66,11 @@ allowMergeCommits: <boolean> # default: false
 allowRevertCommits: <boolean> # default: false
 ```
 
+```yaml
+# Allows a custom URL for the "Details" link (which appears next to the success/failure message from the app) to be specified
+targetUrl: <string> # default: https://github.com/Ezard/semantic-prs
+```
+
 ## Credits
 
 Heavily based on the [Semantic Pull Requests](https://github.com/zeke/semantic-pull-requests) GitHub App created by [@zeke](https://github.com/zeke)
