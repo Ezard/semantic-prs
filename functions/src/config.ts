@@ -10,6 +10,7 @@ export type Config = {
   types: string[];
   allowMergeCommits: boolean;
   allowRevertCommits: boolean;
+  targetUrl: string;
 };
 
 export const defaultConfig: Config = {
@@ -22,4 +23,5 @@ export const defaultConfig: Config = {
   types: Object.keys(types),
   allowMergeCommits: false,
   allowRevertCommits: false,
+  targetUrl: 'https://github.com/Ezard/semantic-prs',
 };
