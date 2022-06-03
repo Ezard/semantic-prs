@@ -28,6 +28,7 @@
     "test": "npm run test:unit",
     "test:unit": "jest",
     "test:unit:coverage": "jest --coverage",
+    "test:mutation": "stryker run",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -39,6 +40,9 @@
   },
   "devDependencies": {
     "@octokit/webhooks-types": "5.6.0",
+    "@stryker-mutator/core": "6.0.2",
+    "@stryker-mutator/jest-runner": "6.0.2",
+    "@stryker-mutator/typescript-checker": "6.0.2",
     "@types/jest": "28.1.0",
     "@types/node": "17.0.31",
     "@typescript-eslint/eslint-plugin": "5.27.0",
