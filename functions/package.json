@@ -1,6 +1,6 @@
 {
   "name": "semantic-prs",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A GitHub app to check that pull request titles follow the Conventional Commits spec",
   "author": "Ben Ezard <ezard.ben@gmail.com>",
   "license": "MIT",
