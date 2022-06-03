@@ -16,5 +16,7 @@
   },
   "ignorePatterns": [
     "lib"
-  ]
+  ],
+  "timeoutFactor": 5,
+  "timeoutMS": 60000
 }
