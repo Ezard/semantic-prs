@@ -13,5 +13,8 @@
   ],
   "thresholds": {
     "break": 100
-  }
+  },
+  "ignorePatterns": [
+    "lib"
+  ]
 }
