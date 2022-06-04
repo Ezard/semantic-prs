@@ -5,10 +5,6 @@ on:
     branches:
       - master
 
-defaults:
-  run:
-    working-directory: functions
-
 jobs:
   cache-dependencies:
     strategy:
@@ -35,3 +31,4 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
+        working-directory: functions
