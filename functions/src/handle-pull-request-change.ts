@@ -8,12 +8,20 @@ import { Config, defaultConfig } from './config';
 import { isMessageSemantic } from './is-message-semantic';
 
 type PullRequestPayload = PullRequestOpenedEvent | PullRequestEditedEvent | PullRequestSynchronizeEvent;
+export type ContextEvent =
+  | 'pull_request.opened'
+  | 'pull_request.reopened'
+  | 'pull_request.edited'
+  | 'pull_request.synchronize';
+export type Status = {
+  sha: string;
+  state: 'error' | 'failure' | 'pending' | 'success';
+  target_url: string;
+  description: string;
+  context: string;
+};
 
-async function getCommitMessages(
-  context: Context<
-    'pull_request.opened' | 'pull_request.reopened' | 'pull_request.edited' | 'pull_request.synchronize'
-  >,
-): Promise<string[]> {
+async function getCommitMessages(context: Context<ContextEvent>): Promise<string[]> {
   const commits = await context.octokit.rest.pulls.listCommits(
     context.repo({
       pull_number: (context.payload as PullRequestPayload).pull_request.number,
@@ -33,11 +41,7 @@ async function checkIfCommitsAreSemantic(
   };
 }
 
-export async function handlePullRequestChange(
-  context: Context<
-    'pull_request.opened' | 'pull_request.reopened' | 'pull_request.edited' | 'pull_request.synchronize'
-  >,
-): Promise<void> {
+export async function handlePullRequestChange(context: Context<ContextEvent>): Promise<void> {
   const { title, head } = (context.payload as PullRequestPayload).pull_request;
   const config = (await context.config<Config>('semantic.yml', defaultConfig)) as Config;
 
@@ -48,6 +52,10 @@ export async function handlePullRequestChange(
 
   abstract class SemanticState {
     protected constructor(public isSemantic: boolean) {}
+
+    getState(): 'success' | 'failure' {
+      return this.isSemantic ? 'success' : 'failure';
+    }
 
     abstract getDescription(): string;
   }
@@ -123,11 +131,9 @@ export async function handlePullRequestChange(
   }
 
   const semanticState = getSemanticState();
-  const state = semanticState.isSemantic ? ('success' as const) : ('failure' as const);
-
-  const status = {
+  const status: Status = {
     sha: head.sha,
-    state,
+    state: semanticState.getState(),
     target_url: config.targetUrl,
     description: semanticState.getDescription(),
     context: 'Semantic PR',
