@@ -11,11 +11,15 @@ export function isMessageSemantic({
   allowRevertCommits,
 }: Config): (message: string) => boolean {
   return function (message: string) {
-    const isMergeCommit = !!message && message.startsWith('Merge');
-    if (allowMergeCommits && isMergeCommit) return true;
+    const isMergeCommit = message.startsWith('Merge');
+    if (allowMergeCommits && isMergeCommit) {
+      return true;
+    }
 
-    const isRevertCommit = !!message && message.startsWith('Revert');
-    if (allowRevertCommits && isRevertCommit) return true;
+    const isRevertCommit = message.startsWith('Revert');
+    if (allowRevertCommits && isRevertCommit) {
+      return true;
+    }
 
     let commit: ConventionalChangelogCommit;
     try {

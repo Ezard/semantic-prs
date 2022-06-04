@@ -43,5 +43,5 @@ jobs:
         run: npm run lint:style
         working-directory: functions
       - name: Run unit tests
-        run: npm run test:unit:coverage -- --passWithNoTests
+        run: npm run test:unit:coverage
         working-directory: functions
