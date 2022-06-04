@@ -1,4 +1,4 @@
-import { PullRequestEvent } from '@octokit/webhooks-types';
+import type { PullRequestEvent } from '@octokit/webhooks-types';
 import nock from 'nock';
 import { Probot, ProbotOctokit } from 'probot';
 import { app } from './app';
