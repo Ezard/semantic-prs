@@ -33,7 +33,7 @@ jobs:
           path: functions/node_modules
           key: ${{ matrix.os }}-node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
       - name: Install dependencies
-#        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
         working-directory: functions
       - name: Lint code
