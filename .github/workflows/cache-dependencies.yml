@@ -1,0 +1,37 @@
+name: Cache Dependencies
+
+on:
+  push:
+    branches:
+      - master
+
+defaults:
+  run:
+    working-directory: functions
+
+jobs:
+  cache-dependencies:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+        node-version:
+          - 16
+    runs-on: ${{ matrix.os }}
+    name: Cache Dependencies
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup dependency cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
+      - name: Install dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: npm ci
