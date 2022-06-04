@@ -5,13 +5,15 @@ on:
     branches:
       - master
 
-env:
-  os: ubuntu-20.04
-  node-version: 16
-
 jobs:
   ci:
-    runs-on: ${{ env.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+        node-version:
+          - 16
     name: CI
     steps:
       - name: Configure Git
@@ -23,13 +25,13 @@ jobs:
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
+          node-version: ${{ matrix.node-version }}
       - name: Setup dependency cache
         id: cache
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ env.os }}-node-${{ env.node-version }}-${{ hashFiles('functions/package-lock.json') }}
+          key: ${{ matrix.os }}-node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
