@@ -25,7 +25,9 @@
     "lint": "npm run lint:code && npm run lint:style",
     "lint:code": "eslint src",
     "lint:style": "prettier --check src",
-    "test": "jest",
+    "test": "npm run test:unit",
+    "test:unit": "jest",
+    "test:unit:coverage": "jest --coverage",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
