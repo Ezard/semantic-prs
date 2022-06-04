@@ -2,14 +2,6 @@ import { defaultConfig } from './config';
 import { isMessageSemantic } from './is-message-semantic';
 
 describe('isMessageSemantic', () => {
-  it('should return false if the message is an empty string', () => {
-    const message = '';
-
-    const isSemantic = isMessageSemantic(defaultConfig)(message);
-
-    expect(isSemantic).toEqual(false);
-  });
-
   it('should return true if the message is for a merge commit and allowMergeCommits is set to true', () => {
     const message = 'Merge branch foo into master';
 
@@ -32,50 +24,46 @@ describe('isMessageSemantic', () => {
     expect(isSemantic).toEqual(false);
   });
 
-  it('should return true if the message is for a semantic non-merge commit and allowMergeCommits is set to true', () => {
-    const message = 'feat: change foo to bar';
+  it('should return false if the message is non-semantic and not for a merge commit and allowMergeCommits is set to true', () => {
+    const message = 'Change foo to bar';
 
     const isSemantic = isMessageSemantic({
       ...defaultConfig,
       allowMergeCommits: true,
     })(message);
 
-    expect(isSemantic).toEqual(true);
+    expect(isSemantic).toEqual(false);
   });
 
-  it('should return true if the message is for a semantic non-merge commit and allowMergeCommits is set to false', () => {
-    const message = 'feat: change foo to bar';
+  it('should return true if the message is for a revert commit and allowRevertCommits is set to true', () => {
+    const message = 'Revert commit abc123';
 
     const isSemantic = isMessageSemantic({
       ...defaultConfig,
-      allowMergeCommits: false,
+      allowRevertCommits: true,
     })(message);
 
     expect(isSemantic).toEqual(true);
   });
 
-  it.each`
-    allowRevertCommits | expected
-    ${true}            | ${true}
-    ${false}           | ${false}
-  `(
-    'should return $expected if the message is for a revert commit and allowRevertCommits is set to $allowRevertCommits',
-    ({ allowRevertCommits, expected }: { allowRevertCommits: boolean; expected: boolean }) => {
-      const message = 'Revert commit abc123';
+  it('should return false if the message is for a revert commit and allowRevertCommits is set to false', () => {
+    const message = 'Revert commit abc123';
 
-      const isSemantic = isMessageSemantic({
-        ...defaultConfig,
-        allowRevertCommits,
-      })(message);
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      allowRevertCommits: false,
+    })(message);
 
-      expect(isSemantic).toEqual(expected);
-    },
-  );
+    expect(isSemantic).toEqual(false);
+  });
 
-  it('should return false if the message is not semantic', () => {
+  it('should return false if the message is non-semantic and not for a revert commit and allowRevertCommits is set to true', () => {
     const message = 'Change foo to bar';
 
-    const isSemantic = isMessageSemantic(defaultConfig)(message);
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      allowRevertCommits: true,
+    })(message);
 
     expect(isSemantic).toEqual(false);
   });

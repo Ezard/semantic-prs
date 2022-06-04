@@ -11,12 +11,12 @@ export function isMessageSemantic({
   allowRevertCommits,
 }: Config): (message: string) => boolean {
   return function (message: string) {
-    const isMergeCommit = message.length > 0 && message.startsWith('Merge');
+    const isMergeCommit = message.startsWith('Merge');
     if (allowMergeCommits && isMergeCommit) {
       return true;
     }
 
-    const isRevertCommit = message.length > 0 && message.startsWith('Revert');
+    const isRevertCommit = message.startsWith('Revert');
     if (allowRevertCommits && isRevertCommit) {
       return true;
     }
