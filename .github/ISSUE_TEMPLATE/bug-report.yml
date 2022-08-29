@@ -1,0 +1,30 @@
+name: Bug Report
+description: Create a report to help us improve the app
+labels:
+  - bug
+assignees:
+  - Ezard
+body:
+  - type: textarea
+    attributes:
+      label: Describe the bug
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: `semantic.yml` contents
+      description: Paste the contents of your `semantic.yml` file here, or `n/a` if you have not specified any custom config
+      value: |
+        ```yml
+        
+        ```
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Sample PR Title(s) (if relevant)
+      description: Paste the PR title that's not being processed correctly here, or delete this section
+  - type: textarea
+    attributes:
+      label: Sample Commit Message(s) (if relevant)
+      description: Paste the commit message(s) that is/are not being processed correctly here, or delete this section
