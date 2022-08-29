@@ -12,7 +12,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: `semantic.yml` contents
+      label: semantic.yml contents
       description: Paste the contents of your `semantic.yml` file here, or `n/a` if you have not specified any custom config
       value: |
         ```yml
