@@ -10,7 +10,10 @@ Install the app from the GitHub Marketplace here: [https://github.com/apps/seman
 
 By default, no configuration is necessary. The default behaviour is that only the PR title or at least one commit message needs to follow the [Conventional Commits spec](https://www.conventionalcommits.org/en/v1.0.0/)
 
-This can be changed by creating a `semantic.yml` file in your `.github` directory, with any of the following optional settings:
+This can be changed by creating a `semantic.yml` file in your `.github` directory. Note, the configuration added to your `semantic.yml` file won't be reflected until the file has been merged into your repository's default branch.
+
+### Configuration Options
+The following optional settings can be added to your `semantic.yml` file.
 
 ```yaml
 # Enable/disable creation of status checks
