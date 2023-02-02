@@ -1,4 +1,4 @@
-import type { PullRequestEvent } from '@octokit/webhooks-types';
+import { EmitterWebhookEvent } from '@octokit/webhooks';
 import nock from 'nock';
 import { Probot, ProbotOctokit } from 'probot';
 import { app } from './app';
@@ -61,8 +61,8 @@ describe('app', () => {
               sha: 'def456',
             },
           },
-        } as PullRequestEvent,
-      });
+        },
+      } as EmitterWebhookEvent<'pull_request'>);
 
       expect(mock.isDone()).toEqual(true);
     },
