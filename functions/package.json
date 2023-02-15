@@ -52,7 +52,7 @@
     "eslint-plugin-import": "2.27.5",
     "firebase-functions-test": "3.0.0",
     "firebase-tools": "11.23.1",
-    "jest": "29.4.2",
+    "jest": "29.4.3",
     "nock": "13.3.0",
     "prettier": "2.8.4",
     "smee-client": "1.2.3",
