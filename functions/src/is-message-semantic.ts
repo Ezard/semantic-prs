@@ -21,12 +21,17 @@ export function isMessageSemantic({
       return true;
     }
 
+    if (message.startsWith(' ')) {
+      return false;
+    }
+
     let commit: ConventionalChangelogCommit;
     try {
       commit = toConventionalChangelogFormat(parser(message));
     } catch (err) {
       return false;
     }
+
 
     const { scope, type } = commit;
     const isScopeValid =

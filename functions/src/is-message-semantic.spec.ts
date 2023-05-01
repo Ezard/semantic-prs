@@ -201,4 +201,12 @@ describe('isMessageSemantic', () => {
 
     expect(isSemantic).toEqual(false);
   });
+
+  it('should return false if there is leading whitespace', () => {
+    const message = ' feat: change foo to bar';
+
+    const isSemantic = isMessageSemantic(defaultConfig)(message);
+
+    expect(isSemantic).toEqual(false);
+  })
 });
