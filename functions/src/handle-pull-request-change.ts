@@ -110,7 +110,7 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
         return new SuccessFailureSemanticState(
           hasSemanticTitle && allCommitsSemantic,
           'ready to be merged, squashed or rebased',
-          'add a semantic commit AND PR title',
+          'make sure every commit AND the PR title is semantic',
         );
       }
     } else if (numNonMergeCommits === 1) {
