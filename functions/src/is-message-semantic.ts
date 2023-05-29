@@ -33,12 +33,7 @@ export function isMessageSemantic({
     }
 
     const { scope, type } = commit;
-    const isScopeValid =
-      !scopes ||
-      !scope ||
-      scope
-        .split(',')
-        .every(scope => scopes.includes(scope));
+    const isScopeValid = !scopes || !scope || scope.split(',').every(scope => scopes.includes(scope));
     const isTypeValid = (types.length > 0 ? types : commitTypes).includes(type);
     return isTypeValid && isScopeValid;
   };
