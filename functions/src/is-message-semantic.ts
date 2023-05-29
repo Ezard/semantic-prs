@@ -38,7 +38,6 @@ export function isMessageSemantic({
       !scope ||
       scope
         .split(',')
-        .map(scope => scope.trim())
         .every(scope => scopes.includes(scope));
     const isTypeValid = (types.length > 0 ? types : commitTypes).includes(type);
     return isTypeValid && isScopeValid;
