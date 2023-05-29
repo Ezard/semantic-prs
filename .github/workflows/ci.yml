@@ -13,7 +13,7 @@ jobs:
         os:
           - ubuntu-20.04
         node-version:
-          - 16
+          - 18
     name: CI
     steps:
       - name: Configure Git
