@@ -484,7 +484,7 @@ describe('handlePullRequestChange', () => {
           'titleAndCommits: true\nanyCommit: false',
           {
             state: 'failure',
-            description: 'add a semantic commit AND PR title',
+            description: 'make sure every commit AND the PR title is semantic',
           },
         );
 
@@ -500,7 +500,7 @@ describe('handlePullRequestChange', () => {
           'titleAndCommits: true\nanyCommit: false',
           {
             state: 'failure',
-            description: 'add a semantic commit AND PR title',
+            description: 'make sure every commit AND the PR title is semantic',
           },
         );
 
@@ -516,7 +516,7 @@ describe('handlePullRequestChange', () => {
           'titleAndCommits: true\nanyCommit: false',
           {
             state: 'failure',
-            description: 'add a semantic commit AND PR title',
+            description: 'make sure every commit AND the PR title is semantic',
           },
         );
 
@@ -532,7 +532,7 @@ describe('handlePullRequestChange', () => {
           'titleAndCommits: true\nanyCommit: false',
           {
             state: 'failure',
-            description: 'add a semantic commit AND PR title',
+            description: 'make sure every commit AND the PR title is semantic',
           },
         );
 
@@ -548,7 +548,7 @@ describe('handlePullRequestChange', () => {
           'titleAndCommits: true\nanyCommit: false',
           {
             state: 'failure',
-            description: 'add a semantic commit AND PR title',
+            description: 'make sure every commit AND the PR title is semantic',
           },
         );
 
