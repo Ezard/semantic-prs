@@ -208,5 +208,5 @@ describe('isMessageSemantic', () => {
     const isSemantic = isMessageSemantic(defaultConfig)(message);
 
     expect(isSemantic).toEqual(false);
-  })
+  });
 });

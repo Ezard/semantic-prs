@@ -32,7 +32,6 @@ export function isMessageSemantic({
       return false;
     }
 
-
     const { scope, type } = commit;
     const isScopeValid =
       !scopes ||
