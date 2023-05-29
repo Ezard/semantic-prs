@@ -202,6 +202,14 @@ describe('isMessageSemantic', () => {
     expect(isSemantic).toEqual(false);
   });
 
+  it('should return true if there is trailing whitespace', () => {
+    const message = 'feat: change foo to bar ';
+
+    const isSemantic = isMessageSemantic(defaultConfig)(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
   it('should return false if there is leading whitespace', () => {
     const message = ' feat: change foo to bar';
 
