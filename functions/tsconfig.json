@@ -17,8 +17,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src",
-    ".eslintrc.js"
+    "src"
   ],
   "compileOnSave": false
 }
