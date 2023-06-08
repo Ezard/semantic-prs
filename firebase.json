@@ -7,7 +7,7 @@
     "ignore": [
       "**/lib/tsconfig.build.tsbuildinfo",
       "**/node_modules/**",
-      "**/.env*",
+      "**/.env.example",
       "**/.eslintrc.js",
       "**/.gitignore",
       "**/.prettierrc",

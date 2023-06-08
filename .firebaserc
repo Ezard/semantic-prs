@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "semantic-prs"
+    "dev": "semantic-prs-dev",
+    "prod": "semantic-prs"
   }
 }
