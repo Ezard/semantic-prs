@@ -39,7 +39,7 @@
     "probot": "12.3.1"
   },
   "devDependencies": {
-    "@octokit/webhooks-types": "7.0.3",
+    "@octokit/webhooks-types": "7.1.0",
     "@stryker-mutator/core": "7.1.0",
     "@stryker-mutator/jest-runner": "7.1.0",
     "@stryker-mutator/typescript-checker": "7.1.0",
