@@ -13,6 +13,9 @@
         "patch",
         "pin",
         "digest"
+        "pull requests"
+        "test"
+        "build"
       ],
       "automerge": true
     }
