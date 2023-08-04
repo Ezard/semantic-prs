@@ -22,12 +22,12 @@ enabled: <boolean> # default: true
 
 ```yaml
 # Validate the PR title, and ignore all commit messages
-titleOnly: <boolean> # default: false
+titleOnly: <boolean> # default: true 
 ```
 
 ```yaml
 # Validate all commit messages, and ignore the PR title
-commitsOnly: <boolean> # default: false
+commitsOnly: <boolean> # default: true
 ```
 
 ```yaml
@@ -38,7 +38,7 @@ titleAndCommits: <boolean> # default: false
 ```yaml
 # If commitsOnly or titleAndCommits is set to true, then only a single commit needs to pass validation instead of every commit
 # If neither of those options are set to true then this option is ignored
-anyCommit: <boolean> # default: false
+anyCommit: <boolean> # default: verify if true merge
 ```
 
 ```yaml
@@ -66,8 +66,7 @@ allowMergeCommits: <boolean> # default: false
 ```yaml
 # Allow revert commits (e.g. 'Revert "fix: delete all tests"')
 # If neither of commitsOnly or titleAndCommits is set to true then this option is ignored
-allowRevertCommits: <boolean> # default: false
-```
+allowRevertCommits: <boolean> # default: true
 
 ```yaml
 # Allows a custom URL for the "Details" link (which appears next to the success/failure message from the app) to be specified
@@ -76,4 +75,5 @@ targetUrl: <string> # default: https://github.com/Ezard/semantic-prs
 
 ## Credits
 
-Heavily based on the [Semantic Pull Requests](https://github.com/zeke/semantic-pull-requests) GitHub App created by [@zeke](https://github.com/zeke)
+Heavily based on the [Semantic Pull Requests](https://github.com/zeke/semantic-pull-requests) GitHub App created by (https://github.com/)
+author: sammyfilly
