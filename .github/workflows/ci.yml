@@ -1,6 +1,6 @@
-name: cli
+name: ci
 
-concurrency: update dependency V3
+concurrency: update dependency V1 ,v2, v3 etc
 
 on:
   pull_request:
