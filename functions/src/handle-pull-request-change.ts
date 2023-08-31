@@ -61,7 +61,10 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
   }
 
   class InfoSemanticState extends SemanticState {
-    constructor(isSemantic: boolean, private message: string) {
+    constructor(
+      isSemantic: boolean,
+      private message: string,
+    ) {
       super(isSemantic);
     }
 
@@ -71,7 +74,11 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
   }
 
   class SuccessFailureSemanticState extends SemanticState {
-    constructor(isSemantic: boolean, private successMessage: string, private failureMessage: string) {
+    constructor(
+      isSemantic: boolean,
+      private successMessage: string,
+      private failureMessage: string,
+    ) {
       super(isSemantic);
     }
 
