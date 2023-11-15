@@ -36,7 +36,7 @@
     "@conventional-commits/parser": "0.4.1",
     "conventional-commit-types": "3.0.0",
     "firebase-functions": "4.5.0",
-    "probot": "12.3.2"
+    "probot": "12.3.3"
   },
   "devDependencies": {
     "@octokit/webhooks-types": "7.3.1",
