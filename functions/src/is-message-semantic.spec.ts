@@ -98,48 +98,61 @@ describe('isMessageSemantic', () => {
     expect(isSemantic).toEqual(true);
   });
 
-  it('should return true if the message is semantic and has multiple allowed scopes and the type is valid', () => {
-    const message = 'feat(auth,docs): change foo to bar';
+  describe('multiple scopes', () => {
+    it('should return true if the message is semantic and has multiple allowed scopes and the type is valid', () => {
+      const message = 'feat(auth,docs): change foo to bar';
 
-    const isSemantic = isMessageSemantic({
-      ...defaultConfig,
-      scopes: ['auth', 'docs', 'profile'],
-    })(message);
+      const isSemantic = isMessageSemantic({
+        ...defaultConfig,
+        scopes: ['auth', 'docs', 'profile'],
+      })(message);
 
-    expect(isSemantic).toEqual(true);
-  });
+      expect(isSemantic).toEqual(true);
+    });
 
-  it('should return false if the message is semantic and has a single disallowed scope and the type is valid', () => {
-    const message = 'feat(auth): change foo to bar';
+    it('should return true if the message is semantic and has multiple allowed scopes separated with spaces and the type is valid', () => {
+      const message = 'feat(auth, docs): change foo to bar';
 
-    const isSemantic = isMessageSemantic({
-      ...defaultConfig,
-      scopes: ['docs', 'profile'],
-    })(message);
+      const isSemantic = isMessageSemantic({
+        ...defaultConfig,
+        scopes: ['auth', 'docs', 'profile'],
+      })(message);
 
-    expect(isSemantic).toEqual(false);
-  });
+      expect(isSemantic).toEqual(true);
+    });
 
-  it('should return false if the message is semantic and has multiple disallowed scopes and the type is valid', () => {
-    const message = 'feat(auth,docs): change foo to bar';
+    it('should return false if the message is semantic and has a single disallowed scope and the type is valid', () => {
+      const message = 'feat(auth): change foo to bar';
 
-    const isSemantic = isMessageSemantic({
-      ...defaultConfig,
-      scopes: ['profile'],
-    })(message);
+      const isSemantic = isMessageSemantic({
+        ...defaultConfig,
+        scopes: ['docs', 'profile'],
+      })(message);
 
-    expect(isSemantic).toEqual(false);
-  });
+      expect(isSemantic).toEqual(false);
+    });
 
-  it('should return false if the message is semantic and has mix of allowed and disallowed scopes and the type is valid', () => {
-    const message = 'feat(auth,docs): change foo to bar';
+    it('should return false if the message is semantic and has multiple disallowed scopes and the type is valid', () => {
+      const message = 'feat(auth,docs): change foo to bar';
 
-    const isSemantic = isMessageSemantic({
-      ...defaultConfig,
-      scopes: ['auth', 'profile'],
-    })(message);
+      const isSemantic = isMessageSemantic({
+        ...defaultConfig,
+        scopes: ['profile'],
+      })(message);
 
-    expect(isSemantic).toEqual(false);
+      expect(isSemantic).toEqual(false);
+    });
+
+    it('should return false if the message is semantic and has mix of allowed and disallowed scopes and the type is valid', () => {
+      const message = 'feat(auth,docs): change foo to bar';
+
+      const isSemantic = isMessageSemantic({
+        ...defaultConfig,
+        scopes: ['auth', 'profile'],
+      })(message);
+
+      expect(isSemantic).toEqual(false);
+    });
   });
 
   it('should return true if no types are provided and the type is one of the default types', () => {
