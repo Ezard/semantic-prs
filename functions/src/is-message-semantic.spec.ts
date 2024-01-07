@@ -142,6 +142,39 @@ describe('isMessageSemantic', () => {
     expect(isSemantic).toEqual(false);
   });
 
+  it('should true if the message has a valid type and multiple valid scopes separated by just commas', () => {
+    const message = 'feat(auth,docs,profile): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['auth', 'docs', 'profile'],
+    })(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
+  it('should true if the message has a valid type and multiple valid scopes separated by commas with spaces', () => {
+    const message = 'feat(auth, docs, profile): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['auth', 'docs', 'profile'],
+    })(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
+  it('should true if the message has a valid type and multiple valid scopes, separated by a combination of just commas and commas with spaces', () => {
+    const message = 'feat(auth,docs, profile): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['auth', 'docs', 'profile'],
+    })(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
   it('should return true if no types are provided and the type is one of the default types', () => {
     const message = 'feat: change foo to bar';
 
