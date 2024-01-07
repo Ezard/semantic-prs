@@ -29,9 +29,10 @@ describe('app', () => {
     ${'edited'}
     ${'reopened'}
     ${'synchronize'}
+    ${'enqueued'}
   `(
     'should be triggered on pull_request.$action events',
-    async ({ action }: { action: 'opened' | 'edited' | 'reopened' | 'synchronize' }) => {
+    async ({ action }: { action: 'opened' | 'edited' | 'reopened' | 'synchronize' | 'enqueued' }) => {
       const mock = nock('https://api.github.com')
         .get('/repos/foo/.github/contents/.github%2Fsemantic.yml')
         .reply(404)
