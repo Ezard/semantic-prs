@@ -12,7 +12,8 @@ export type ContextEvent =
   | 'pull_request.opened'
   | 'pull_request.reopened'
   | 'pull_request.edited'
-  | 'pull_request.synchronize';
+  | 'pull_request.synchronize'
+  | 'pull_request.enqueued';
 export type Status = {
   sha: string;
   state: 'error' | 'failure' | 'pending' | 'success';
