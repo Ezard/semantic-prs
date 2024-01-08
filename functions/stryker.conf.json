@@ -15,7 +15,8 @@
     "break": 100
   },
   "ignorePatterns": [
-    "lib"
+    "lib",
+    "*.e2e-spec.ts"
   ],
   "timeoutFactor": 5,
   "timeoutMS": 60000
