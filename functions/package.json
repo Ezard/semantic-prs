@@ -56,7 +56,7 @@
     "nock": "13.5.4",
     "prettier": "3.2.5",
     "smee-client": "2.0.1",
-    "ts-jest": "29.1.3",
+    "ts-jest": "29.1.4",
     "typescript": "5.4.5"
   }
 }
