@@ -40,9 +40,9 @@
   },
   "devDependencies": {
     "@octokit/webhooks-types": "7.5.1",
-    "@stryker-mutator/core": "8.4.0",
-    "@stryker-mutator/jest-runner": "8.4.0",
-    "@stryker-mutator/typescript-checker": "8.4.0",
+    "@stryker-mutator/core": "8.5.0",
+    "@stryker-mutator/jest-runner": "8.5.0",
+    "@stryker-mutator/typescript-checker": "8.5.0",
     "@types/jest": "29.5.12",
     "@types/node": "18.19.44",
     "@typescript-eslint/eslint-plugin": "7.18.0",
