@@ -242,4 +242,20 @@ describe('isMessageSemantic', () => {
 
     expect(isSemantic).toEqual(false);
   });
+
+  it('should return false if there is no whitespace after the type', () => {
+    const message = 'feat:change foo to bar';
+
+    const isSemantic = isMessageSemantic(defaultConfig)(message);
+
+    expect(isSemantic).toEqual(false);
+  });
+
+  it('should return false if there is scope but no whitespace after the type', () => {
+    const message = 'feat(foo):change foo to bar';
+
+    const isSemantic = isMessageSemantic(defaultConfig)(message);
+
+    expect(isSemantic).toEqual(false);
+  });
 });
