@@ -25,6 +25,10 @@ export function isMessageSemantic({
       return false;
     }
 
+    if (!/^.*: [^ ].*$/.test(message)) {
+      return false;
+    }
+
     let commit: ConventionalChangelogCommit;
     try {
       commit = toConventionalChangelogFormat(parser(message));
