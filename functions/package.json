@@ -57,6 +57,6 @@
     "prettier": "3.3.3",
     "smee-client": "2.0.4",
     "ts-jest": "29.2.5",
-    "typescript": "5.6.3"
+    "typescript": "5.7.2"
   }
 }
