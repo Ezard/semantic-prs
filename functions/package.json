@@ -51,7 +51,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.31.0",
     "firebase-functions-test": "3.3.0",
-    "firebase-tools": "13.26.0",
+    "firebase-tools": "13.27.0",
     "jest": "29.7.0",
     "nock": "13.5.6",
     "prettier": "3.3.3",
