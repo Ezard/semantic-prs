@@ -3,6 +3,7 @@ import { types } from 'conventional-commit-types';
 import { Config } from './config';
 
 const commitTypes = Object.keys(types);
+const validTypeSyntaxRegex = /^.*: [^ ].*$/;
 
 export function isMessageSemantic({
   scopes,
@@ -34,7 +35,8 @@ export function isMessageSemantic({
 
     const { scope, type } = commit;
     const isScopeValid = !scopes || !scope || scope.split(/, ?/).every(scope => scopes.includes(scope));
-    const isTypeValid = (types.length > 0 ? types : commitTypes).includes(type);
+    const isTypeValid = (types.length > 0 ? types : commitTypes).includes(type) && validTypeSyntaxRegex.test(message);
+
     return isTypeValid && isScopeValid;
   };
 }
