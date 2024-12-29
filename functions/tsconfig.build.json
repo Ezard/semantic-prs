@@ -4,7 +4,6 @@
     "src"
   ],
   "exclude": [
-    "**/*.spec.ts",
-    ".eslintrc.js"
+    "**/*.spec.ts"
   ]
 }

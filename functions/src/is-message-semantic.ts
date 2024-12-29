@@ -29,7 +29,7 @@ export function isMessageSemantic({
     let commit: ConventionalChangelogCommit;
     try {
       commit = toConventionalChangelogFormat(parser(message));
-    } catch (err) {
+    } catch {
       return false;
     }
 
