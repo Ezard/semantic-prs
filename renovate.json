@@ -1,8 +1,7 @@
 {
   "extends": [
     "config:recommended",
-    ":semanticCommitTypeAll(chore)",
-    "packages:eslint"
+    ":semanticCommitTypeAll(chore)"
   ],
   "ignorePresets": [
     ":prHourlyLimit2"
@@ -16,6 +15,12 @@
         "digest"
       ],
       "automerge": true
+    },
+    {
+      "extends": [
+        "packages:eslint"
+      ],
+      "groupName": "ESLint"
     }
   ]
 }
