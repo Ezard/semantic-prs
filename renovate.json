@@ -1,7 +1,8 @@
 {
   "extends": [
     "config:base",
-    ":semanticCommitTypeAll(chore)"
+    ":semanticCommitTypeAll(chore)",
+    "packages:eslint"
   ],
   "ignorePresets": [
     ":prHourlyLimit2"
