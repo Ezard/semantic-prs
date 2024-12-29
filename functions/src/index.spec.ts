@@ -13,6 +13,7 @@ describe('semanticPrs', () => {
       createProbot: jest.fn(),
     }));
 
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('./index');
 
     expect(region).toHaveBeenCalledWith('europe-west2');

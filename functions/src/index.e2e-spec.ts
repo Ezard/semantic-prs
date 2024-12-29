@@ -8,9 +8,9 @@ describe('semanticPrs', () => {
       createProbot: jest.fn().mockReturnValue(probot),
     }));
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { semanticPrs } = require('./index');
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { app } = require('./app');
 
     const req = {};
