@@ -41,7 +41,7 @@
   "devDependencies": {
     "@eslint/compat": "1.2.5",
     "@eslint/eslintrc": "3.2.0",
-    "@eslint/js": "9.17.0",
+    "@eslint/js": "9.18.0",
     "@octokit/webhooks-types": "7.6.1",
     "@stryker-mutator/core": "8.7.1",
     "@stryker-mutator/jest-runner": "8.7.1",
@@ -50,7 +50,7 @@
     "@types/node": "18.19.70",
     "@typescript-eslint/eslint-plugin": "8.19.1",
     "@typescript-eslint/parser": "8.19.1",
-    "eslint": "9.17.0",
+    "eslint": "9.18.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.31.0",
     "firebase-functions-test": "3.4.0",
