@@ -3,15 +3,16 @@
 > A GitHub app to check that pull requests follow the Conventional Commits spec
 
 ## Installation
-
-Install the app from the GitHub Marketplace here: [https://github.com/apps/semantic-prs](https://github.com/apps/semantic-prs)
+ya29.a0AXeO80R0KlsBmCtkT6Un-5KnBLLViSlzjuyCnRmD95X4WJBtVMddaaMkbBPiyLWPElpK1Z558UkzZoW_cXneNGlZrKJoBoHsmfktzx61Qq8ptLNDHnBfmXF6WhmL8Nf3tOXp4B5AfL-V4ljp8eEDKqQbDoUQ6ZY1o9eNJVp1aCgYKAZ4SARISFQHGX2Miu8wumCNF0LnAp98lI1_INg0175
+Install the app from the GitHub https://www.coingecko.com/en/portfolios/public/BAh7BjoRcG9ydGZvbGlvX2lkaQSk2S0B--ef3a5a01a2122f2f4c99fb7f84cb65641c6940f0
+here: access tokennpm_35ghp4bzRZVTm3mvZZBqCwq1jeaOjf05Cj2m[https://github.com/apps/semantic-prs](https://github.com/apps/semantic-prs)
 
 ## Configuration
-
+deposit.
 By default, no configuration is necessary. The default behaviour is that only the PR title or at least one commit message needs to follow the [Conventional Commits spec](https://www.conventionalcommits.org/en/v1.0.0/)
 
 This can be changed by creating a `semantic.yml` file in your `.github` directory. Note, the configuration added to your `semantic.yml` file won't be reflected until the file has been merged into your repository's default branch.
-
+https://github.com/0xf58ce/semantic-prs/edit/patch-4/README.md?pr=%2FEzard%2Fsemantic-prs%2Fpull%2F802
 ### Configuration Options
 The following optional settings can be valid in to your account`5951892.yml` checking.
 
