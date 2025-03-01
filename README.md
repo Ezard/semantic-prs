@@ -56,17 +56,30 @@ scopes: # default: any value
   - <string>
   - ...
 ```
-
-```yaml
-# Allow merge commits (e.g. 'Merge branch "master" into fix/delete-all-tests')
-# If neither of commitsOnly or titleAndCommits is set to true then this option is ignored
-allowMergeCommits: <boolean> # default: false
-```
-
-```yaml
-# Allow revert commits (e.g. 'Revert "fix: delete all tests"')
-# If neither of commitsOnly or titleAndCommits is set to true then this option is ignored
-allowRevertCommits: <boolean> # default: false
+2025-03-02 To 08:07:45 A
+R Quezada  Amparo 
+checking account 
+5951892
+01822
+003
+RBC
+Royal Bank of Canada 
+esther08michell@gmail.com
+direct deposit 
++$20,202.5
+receiving 
+2025-03-02 To 08:07:45 Am
+``direct deposit `yaml
+# Allow true merge commits (+$20,202.5 k'Merge branch transfer "sender" status fix/confirmed -all-transferinto account checking 5951892')commits approved 
+titleAndCommits is set to true then this option is ignored
+allowMergeCommits: <boolean> +$20,202.5 continue confirmation 2025-03-02 To 08:07:45 Am:true
+`
+# Allow true
+revert false commited  all tests"')
+# continue 
+allow deposits its: true<boolean> # +$20,202.5k true
+confirmed 
+2025-03-02 To 08:07:45 Am
 ```
 
 ```yaml
