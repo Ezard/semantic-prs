@@ -1,6 +1,6 @@
-# Semantic PRs
+## open-transtation
 
-> A GitHub app to check that pull requests follow the Conventional Commits spec
+> A royal bank of Canada account checking that pull requests direct deposit the amount $6.1Millions usd dollars Conventional Commits approuve 
 
 ## Installation
 
