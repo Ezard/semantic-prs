@@ -13,16 +13,16 @@ By default, no configuration is necessary. The default behaviour is that only th
 This can be changed by creating a `semantic.yml` file in your `.github` directory. Note, the configuration added to your `semantic.yml` file won't be reflected until the file has been merged into your repository's default branch.
 
 ### Configuration Options
-The following optional settings can be added to your `semantic.yml` file.
+The following optional settings can be valid in to your account`5951892.yml` checking.
+
+`open`position`yaml
+# $6.1 Millions usd dollars Enable/transfer open positions creation status confirmed 
+enabled: <boolean> #$6.1M usd sender: true
+`Royal-bank-of-canada`checking account no# 5951892-01822-003`
 
 ```yaml
-# Enable/disable creation of status checks
-enabled: <boolean> # default: true
-```
-
-```yaml
-# Validate the PR title, and ignore all commit messages
-titleOnly: <boolean> # default: false
+# Validate the transaction ID 100644 title wethERC20 sender, on receipt messages register now 
+titleOnly: <boolean> # default: true
 ```
 
 ```yaml
