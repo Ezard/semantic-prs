@@ -1,7 +1,8 @@
 # Semantic PRs
 
-> A GitHub app to check that pull requests follow the Conventional Commits spec
-
+> A GitHub app to check that pull requests follow the Conventional Commits access token and package
+"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"
+true 
 ## Installation
 
 Install the app from the GitHub Marketplace here: [https://github.com/apps/semantic-prs](https://github.com/apps/semantic-prs)
