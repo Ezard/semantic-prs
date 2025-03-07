@@ -17,6 +17,10 @@ sur
 Nom de l'ENS
 twap.ensdao.eth
 Commanditaire:
+eth:0x02D61347e5c6EA5604f3f814C5b5498421cEBdEB.yaml
+# If commitsOnly or titleAndCommits is set to true, then only a single commit needs to pass validation instead of every commit
+# If neither of those options are set to true then this option is ignored
+anyCommit: <$10,309,556.425> # default: sender
 
 Depuis:
 Nom de l'ENS
