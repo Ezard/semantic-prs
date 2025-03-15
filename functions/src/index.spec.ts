@@ -1,12 +1,8 @@
 describe('semanticPrs', () => {
   it('should use the europe-west2 region', () => {
-    const region = jest.fn().mockReturnValue({
-      https: {
-        onRequest: jest.fn(),
-      },
-    });
-    jest.mock('firebase-functions', () => ({
-      region,
+    const onRequest = jest.fn();
+    jest.mock('firebase-functions/https', () => ({
+      onRequest,
     }));
     jest.mock('probot', () => ({
       createNodeMiddleware: jest.fn(),
@@ -16,6 +12,6 @@ describe('semanticPrs', () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('./index');
 
-    expect(region).toHaveBeenCalledWith('europe-west2');
+    expect(onRequest).toHaveBeenCalledWith({ region: 'europe-west2' }, expect.any(Function));
   });
 });
