@@ -19,7 +19,7 @@ describe('semanticPrs', () => {
     semanticPrs(req, res);
 
     expect(createNodeMiddleware).toHaveBeenCalledTimes(1);
-    expect(createNodeMiddleware).toHaveBeenCalledWith(app, { probot });
+    expect(createNodeMiddleware).toHaveBeenCalledWith(app, { probot, webhooksPath: '/' });
     expect(requestListener).toHaveBeenCalledTimes(1);
     expect(requestListener).toHaveBeenCalledWith(req, res);
   });

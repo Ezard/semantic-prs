@@ -74,6 +74,7 @@ const MIXED_COMMIT_MESSAGES = [SEMANTIC_COMMIT_MESSAGES[0], UNSEMANTIC_COMMIT_ME
 describe('handlePullRequestChange', () => {
   beforeAll(() => {
     nock.disableNetConnect();
+    process.env.APP_NAME = 'Semantic PR';
   });
 
   afterEach(() => {
@@ -82,6 +83,7 @@ describe('handlePullRequestChange', () => {
 
   afterAll(() => {
     nock.enableNetConnect();
+    delete process.env.APP_NAME;
   });
 
   describe('when "enabled" is set to false in config', () => {
