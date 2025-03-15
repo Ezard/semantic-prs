@@ -1,7 +1,15 @@
-import { region } from 'firebase-functions';
+import { onRequest } from 'firebase-functions/https';
 import { createNodeMiddleware, createProbot } from 'probot';
 import { app } from './app';
 
-export const semanticPrs = region('europe-west2').https.onRequest((req, res) => {
-  createNodeMiddleware(app, { probot: createProbot() })(req, res);
-});
+export const semanticPrs = onRequest(
+  {
+    region: 'europe-west2',
+  },
+  (req, res) => {
+    createNodeMiddleware(app, {
+      probot: createProbot(),
+      webhooksPath: '/',
+    })(req, res);
+  },
+);

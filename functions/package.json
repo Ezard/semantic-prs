@@ -35,7 +35,7 @@
   "dependencies": {
     "@conventional-commits/parser": "0.4.1",
     "conventional-commit-types": "3.0.0",
-    "firebase-functions": "4.9.0",
+    "firebase-functions": "6.3.2",
     "probot": "13.4.4"
   },
   "devDependencies": {
@@ -53,6 +53,7 @@
     "eslint": "9.22.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-import": "2.31.0",
+    "firebase-admin": "13.2.0",
     "firebase-functions-test": "3.4.1",
     "firebase-tools": "13.34.0",
     "globals": "16.0.0",
