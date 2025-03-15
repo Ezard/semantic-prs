@@ -7,6 +7,9 @@ export const semanticPrs = onRequest(
     region: 'europe-west2',
   },
   (req, res) => {
-    createNodeMiddleware(app, { probot: createProbot() })(req, res);
+    createNodeMiddleware(app, {
+      probot: createProbot(),
+      webhooksPath: '/',
+    })(req, res);
   },
 );
