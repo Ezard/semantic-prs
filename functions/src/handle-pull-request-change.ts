@@ -6,6 +6,7 @@ import type {
 import type { Context } from 'probot';
 import { Config, defaultConfig } from './config';
 import { isMessageSemantic } from './is-message-semantic';
+import { defineString } from 'firebase-functions/params';
 
 type PullRequestPayload = PullRequestOpenedEvent | PullRequestEditedEvent | PullRequestSynchronizeEvent;
 export type ContextEvent =
@@ -21,6 +22,8 @@ export type Status = {
   description: string;
   context: string;
 };
+
+const appName = defineString('APP_NAME');
 
 async function getCommitMessages(context: Context<ContextEvent>): Promise<string[]> {
   const commits = await context.octokit.rest.pulls.listCommits(
@@ -144,7 +147,7 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
     state: semanticState.getState(),
     target_url: config.targetUrl,
     description: semanticState.getDescription(),
-    context: 'Semantic PR',
+    context: appName.value(),
   };
   await context.octokit.rest.repos.createCommitStatus(context.repo(status));
 }
