@@ -1,7 +1,8 @@
 import nock, { type Scope } from 'nock';
 import { Context, ProbotOctokit } from 'probot';
-import type { ContextEvent, Status } from './handle-pull-request-change';
+import type { ContextEvent } from './handle-pull-request-change';
 import { handlePullRequestChange } from './handle-pull-request-change';
+import { Status } from './status';
 
 function createContext(title: string): Context<ContextEvent> {
   return new Context<ContextEvent>(
@@ -728,4 +729,22 @@ describe('handlePullRequestChange', () => {
   });
 
   describe('when "targetUrl" is not set in config', () => {});*/
+
+  describe('when a commit should be checked and it contains a multiline body', () => {
+    it('should only use the first line of the commit body when checking if it is semantic', async () => {
+      const { context, scope } = await setupTest(
+        SEMANTIC_TITLE,
+        ['feat: update foobar\nbaz'],
+        'commitsOnly: true\nanyCommit: false',
+        {
+          state: 'success',
+          description: 'ready to be merged or rebased',
+        },
+      );
+
+      await handlePullRequestChange(context);
+
+      expect(scope.isDone()).toEqual(true);
+    });
+  });
 });

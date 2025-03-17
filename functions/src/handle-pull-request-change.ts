@@ -38,7 +38,9 @@ async function checkIfCommitsAreSemantic(
   commitMessages: string[],
   config: Config,
 ): Promise<{ someCommitsSemantic: boolean; allCommitsSemantic: boolean }> {
-  const numSemanticCommits = commitMessages.filter(isMessageSemantic(config)).length;
+  const numSemanticCommits = commitMessages
+    .map(message => message.split(/\r?\n/)[0])
+    .filter(isMessageSemantic(config)).length;
   return {
     someCommitsSemantic: numSemanticCommits > 0,
     allCommitsSemantic: numSemanticCommits === commitMessages.length,
