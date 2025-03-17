@@ -68,4 +68,34 @@ describe('app', () => {
       expect(mock.isDone()).toEqual(true);
     },
   );
+
+  it('should be triggered on merge_group.checks_requested events', async () => {
+    const mock = nock('https://api.github.com')
+      .get('/repos/foo/.github/contents/.github%2Fsemantic.yml')
+      .reply(404)
+      .get('/repos/foo/bar/contents/.github%2Fsemantic.yml')
+      .reply(404)
+      .post('/repos/foo/bar/statuses/def456')
+      .reply(200, {});
+
+    await probot.receive({
+      id: 'abc123',
+      name: 'merge_group',
+      payload: {
+        action: 'checks_requested',
+        merge_group: {
+          head_sha: 'def456',
+        },
+        repository: {
+          name: 'bar',
+          owner: {
+            login: 'foo',
+          },
+          url: 'https://github.com/foo/bar',
+        },
+      },
+    } as EmitterWebhookEvent<'merge_group.checks_requested'>);
+
+    expect(mock.isDone()).toEqual(true);
+  });
 });
