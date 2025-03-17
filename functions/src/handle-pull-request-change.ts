@@ -6,7 +6,8 @@ import type {
 import type { Context } from 'probot';
 import { Config, defaultConfig } from './config';
 import { isMessageSemantic } from './is-message-semantic';
-import { defineString } from 'firebase-functions/params';
+import { Status } from './status';
+import { appName } from './app-name';
 
 type PullRequestPayload = PullRequestOpenedEvent | PullRequestEditedEvent | PullRequestSynchronizeEvent;
 export type ContextEvent =
@@ -15,15 +16,6 @@ export type ContextEvent =
   | 'pull_request.edited'
   | 'pull_request.synchronize'
   | 'pull_request.enqueued';
-export type Status = {
-  sha: string;
-  state: 'error' | 'failure' | 'pending' | 'success';
-  target_url: string;
-  description: string;
-  context: string;
-};
-
-const appName = defineString('APP_NAME');
 
 async function getCommitMessages(context: Context<ContextEvent>): Promise<string[]> {
   const commits = await context.octokit.rest.pulls.listCommits(
