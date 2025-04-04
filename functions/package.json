@@ -36,7 +36,7 @@
     "@conventional-commits/parser": "0.4.1",
     "conventional-commit-types": "3.0.0",
     "firebase-functions": "6.3.2",
-    "probot": "13.4.4"
+    "probot": "13.4.5"
   },
   "devDependencies": {
     "@eslint/compat": "1.2.8",
