@@ -9,11 +9,9 @@ jobs:
   cache-dependencies:
     strategy:
       matrix:
-        os:
-          - ubuntu-20.04
         node-version:
           - 18
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     name: Cache Dependencies
     steps:
       - name: Checkout code
@@ -27,7 +25,7 @@ jobs:
         id: cache
         with:
           path: functions/node_modules
-          key: ${{ matrix.os }}-node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
+          key: node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci

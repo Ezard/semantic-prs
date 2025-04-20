@@ -7,13 +7,11 @@ on:
 
 jobs:
   ci:
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os:
-          - ubuntu-20.04
         node-version:
           - 18
+    runs-on: ubuntu-24.04
     name: CI
     steps:
       - name: Configure Git
@@ -31,7 +29,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: functions/node_modules
-          key: ${{ matrix.os }}-node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
+          key: node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
