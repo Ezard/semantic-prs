@@ -7,10 +7,6 @@ on:
 
 jobs:
   cache-dependencies:
-    strategy:
-      matrix:
-        node-version:
-          - 18
     runs-on: ubuntu-24.04
     name: Cache Dependencies
     steps:
@@ -19,13 +15,13 @@ jobs:
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22.14.1
       - name: Setup dependency cache
         uses: actions/cache@v4
         id: cache
         with:
           path: functions/node_modules
-          key: node-${{ matrix.node-version }}-${{ hashFiles('functions/package-lock.json') }}
+          key: node-${{ hashFiles('functions/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
