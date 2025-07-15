@@ -35,7 +35,7 @@
   "dependencies": {
     "@conventional-commits/parser": "0.4.1",
     "conventional-commit-types": "3.0.0",
-    "firebase-functions": "6.3.2",
+    "firebase-functions": "6.4.0",
     "probot": "13.4.7"
   },
   "devDependencies": {
