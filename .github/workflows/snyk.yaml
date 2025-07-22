@@ -1,0 +1,114 @@
+name: Ultimate Snyk Security Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 3 * * 1' # هر دوشنبه ساعت ۳ صبح UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+  security-events: write
+  actions: read
+
+jobs:
+  snyk-full-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. چک‌اوت کد
+      - uses: actions/checkout@v4
+
+      # 2. نصب ابزارها
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3 python3-pip docker.io
+          npm install -g snyk
+
+      # 3. اسکن کدهای Node.js
+      - name: Snyk Code Scan (Node.js)
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test --sarif-file-output=node.sarif || true
+
+      # 4. اسکن کانتینر و Dockerfile
+      - name: Snyk Container Scan
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk container test --sarif-file-output=docker.sarif || true
+
+      # 5. اسکن Infrastructure as Code (IaC)
+      - name: Snyk IaC Scan
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk iac test . --report --sarif-file-output=iac.sarif || true
+
+      # 6. تلاش برای رفع مشکلات
+      - name: Auto Fix Vulnerabilities
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk fix || true
+
+      # 7. بروزرسانی Security Policy
+      - name: Update SECURITY.md
+        run: node devops/update-security-policy.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 8. ساخت Pull Request
+      - name: Create Security PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: devops/auto-security-fix
+          commit-message: "chore: automated Snyk fixes & SECURITY.md update"
+          title: "Automated Security Remediation"
+          body: "این PR شامل اصلاحات امنیتی، بروزرسانی Security Policy و گزارش کامل است."
+          labels: security, snyk
+
+      # 9. آپلود گزارش‌ها به GitHub Security
+      - name: Upload Node.js SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: node.sarif
+
+      - name: Upload Docker SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: docker.sarif
+
+      - name: Upload IaC SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: iac.sarif
+
+      # 10. اطلاع‌رسانی در Slack
+      - name: Notify Slack
+        if: always()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"✅ Snyk scan completed for $GITHUB_REPOSITORY. Check Security Tab & PRs."}' \
+            "${{ secrets.SLACK_WEBHOOK }}"
+
+      # 11. اطلاع‌رسانی در Telegram
+      - name: Notify Telegram
+        if: always()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="✅ Snyk scan completed for $GITHUB_REPOSITORY. Check Security Tab & PRs."
+
+      # 12. ساخت Release اگر PR Merge شد
+      - name: Create Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: "Automated Security Release v${{ github.run_number }}"
+          body: "نسخه جدید پس از اصلاحات امنیتی خودکار منتشر شد."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
