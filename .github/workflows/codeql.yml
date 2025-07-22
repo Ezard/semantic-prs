@@ -1,0 +1,77 @@
+name: CodeQL Advanced
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '0 2 * * *'  # هر روز ساعت ۲ صبح UTC
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: javascript-typescript
+            build-mode: none
+          - language: python
+            build-mode: none
+          - language: java-kotlin
+            build-mode: manual
+          - language: c-cpp
+            build-mode: manual
+          - language: csharp
+            build-mode: manual
+          - language: go
+            build-mode: none
+          - language: ruby
+            build-mode: none
+          - language: swift
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix['build-mode'] }}
+          cache: true
+
+      - if: matrix.build-mode == 'manual'
+        shell: bash
+        run: |
+          echo "شروع ساخت پروژه برای زبان ${{ matrix.language }}..."
+          # دستورات ساخت پروژه خودت را اینجا اضافه کن
+          echo "⚠️ لطفا دستورات ساخت پروژه را جایگزین کن"
+          exit 1
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+
+      - name: Upload SARIF to Security Tab
+        if: success()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ github.workspace }}/codeql-results.sarif
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "::error::CodeQL analysis for language ${{ matrix.language }} failed. لطفا لاگ‌ها را بررسی کنید."
