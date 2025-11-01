@@ -56,7 +56,7 @@
     "firebase-admin": "13.5.0",
     "firebase-functions-test": "3.4.1",
     "firebase-tools": "14.23.0",
-    "globals": "16.4.0",
+    "globals": "16.5.0",
     "jest": "30.2.0",
     "nock": "14.0.10",
     "prettier": "3.6.2",
