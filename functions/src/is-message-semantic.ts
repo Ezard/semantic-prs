@@ -34,7 +34,23 @@ export function isMessageSemantic({
     }
 
     const { scope, type } = commit;
-    const isScopeValid = !scopes || !scope || scope.split(/, ?/).every(scope => scopes.includes(scope));
+    const isScopeValid = !scopes || !scope || scope.split(/, ?/).every((commitScope: string) => {
+      return scopes.some(configuredScope => {
+        // First try exact match
+        if (configuredScope === commitScope) {
+          return true;
+        }
+        
+        // Then try regex match - treating the configured scope as a pattern
+        try {
+          const regex = new RegExp(`^${configuredScope}`);
+          return regex.test(commitScope);
+        } catch {
+          // If it's not a valid regex pattern, just do exact match
+          return false;
+        }
+      });
+    });
     const isTypeValid = (types.length > 0 ? types : commitTypes).includes(type) && validTypeSyntaxRegex.test(message);
 
     return isTypeValid && isScopeValid;
