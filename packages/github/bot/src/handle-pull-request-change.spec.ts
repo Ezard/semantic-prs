@@ -1,8 +1,8 @@
 import nock, { type Scope } from 'nock';
 import { Context, ProbotOctokit } from 'probot';
-import type { ContextEvent } from './handle-pull-request-change';
-import { handlePullRequestChange } from './handle-pull-request-change';
-import { Status } from './status';
+import type { ContextEvent } from './handle-pull-request-change.js';
+import { handlePullRequestChange } from './handle-pull-request-change.js';
+import { Status } from './status.js';
 
 function createContext(title: string): Context<ContextEvent> {
   return new Context<ContextEvent>(

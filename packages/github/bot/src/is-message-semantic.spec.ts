@@ -1,5 +1,5 @@
-import { defaultConfig } from './config';
-import { isMessageSemantic } from './is-message-semantic';
+import { defaultConfig } from './config.js';
+import { isMessageSemantic } from './is-message-semantic.js';
 
 describe('isMessageSemantic', () => {
   it('should return true if the message is for a merge commit and allowMergeCommits is set to true', () => {

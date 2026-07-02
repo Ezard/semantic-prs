@@ -1,8 +1,10 @@
+.deployed
 .idea
 node_modules
 npm-debug.log
 *.pem
 !mock-cert.pem
-.env
+!.env.example
+.env*
 coverage
 lib

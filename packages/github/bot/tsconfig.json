@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "declaration": true,
     "target": "ES2020",
     "sourceMap": true,
-    "outDir": "lib",
+    "outDir": "../../../functions/lib",
     "incremental": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -17,7 +18,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src"
+    "./src"
   ],
+  "exclude": ["*.spec.ts"],
   "compileOnSave": false
 }

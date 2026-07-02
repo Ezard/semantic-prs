@@ -1,7 +1,7 @@
 import { EmitterWebhookEvent } from '@octokit/webhooks';
 import nock from 'nock';
 import { Probot, ProbotOctokit } from 'probot';
-import { app } from './app';
+import { app } from './app.js';
 
 describe('app', () => {
   let probot: Probot;

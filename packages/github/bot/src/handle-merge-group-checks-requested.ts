@@ -1,7 +1,7 @@
 import { Context } from 'probot';
-import { Status } from './status';
-import { Config, defaultConfig } from './config';
-import { appName } from './app-name';
+import { Status } from './status.js';
+import { Config, defaultConfig } from './config.js';
+import { appName } from './app-name.js';
 
 export async function handleMergeGroupChecksRequested(context: Context<'merge_group.checks_requested'>) {
   const config = (await context.config<Config>('semantic.yml', defaultConfig)) as Config;
@@ -10,7 +10,7 @@ export async function handleMergeGroupChecksRequested(context: Context<'merge_gr
     state: 'success',
     target_url: config.targetUrl,
     description: 'nothing to report for merge queues',
-    context: appName.value(),
+    context: appName,
   };
   await context.octokit.rest.repos.createCommitStatus(context.repo(status));
 }
