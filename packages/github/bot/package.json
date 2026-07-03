@@ -26,6 +26,7 @@
     "lint": "npm run lint:code && npm run lint:style",
     "lint:code": "eslint src/**/*",
     "lint:style": "prettier --check src",
+    "lint:style:fix": "prettier --write src",
     "test": "npm run test:unit",
     "test:unit": "jest",
     "test:unit:coverage": "jest --coverage",
@@ -39,8 +40,6 @@
     "probot": "13.4.7"
   },
   "devDependencies": {
-    "@eslint/compat": "1.4.1",
-    "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "9.39.4",
     "@octokit/webhooks-types": "7.6.1",
     "@stryker-mutator/core": "9.6.1",
@@ -48,17 +47,15 @@
     "@stryker-mutator/typescript-checker": "9.6.1",
     "@types/jest": "30.0.0",
     "@types/node": "24.13.2",
-    "@typescript-eslint/eslint-plugin": "8.62.1",
-    "@typescript-eslint/parser": "8.62.1",
     "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-import": "2.32.0",
     "globals": "16.5.0",
     "jest": "30.4.2",
     "nock": "14.0.16",
     "prettier": "3.9.4",
     "smee-client": "5.0.0",
     "ts-jest": "29.4.11",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.62.1"
   }
 }

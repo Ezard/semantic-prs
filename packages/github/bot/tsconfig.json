@@ -5,7 +5,7 @@
     "declaration": true,
     "target": "ES2020",
     "sourceMap": true,
-    "outDir": "../../../functions/lib",
+    "outDir": "lib",
     "incremental": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -17,9 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "./src"
-  ],
+  "include": ["./src"],
   "exclude": ["*.spec.ts"],
   "compileOnSave": false
 }
