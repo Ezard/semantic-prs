@@ -41,7 +41,7 @@ export async function main(event: DOEvent) {
       statusCode: 200,
       body: { message: 'Webhook successfully processed.' },
     };
-  } catch (error: unknown) {
+  } catch (/* eslint-disable @typescript-eslint/no-explicit-any */ error: any) {
     console.error('Error handling webhook:', error);
 
     return {
