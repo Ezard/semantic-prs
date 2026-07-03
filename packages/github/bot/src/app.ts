@@ -1,6 +1,6 @@
 import { Probot } from 'probot';
-import { handlePullRequestChange } from './handle-pull-request-change';
-import { handleMergeGroupChecksRequested } from './handle-merge-group-checks-requested';
+import { handlePullRequestChange } from './handle-pull-request-change.js';
+import { handleMergeGroupChecksRequested } from './handle-merge-group-checks-requested.js';
 
 export const app = (app: Probot) => {
   app.on('pull_request.opened', handlePullRequestChange);

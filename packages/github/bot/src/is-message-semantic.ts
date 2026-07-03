@@ -1,8 +1,8 @@
 import { ConventionalChangelogCommit, parser, toConventionalChangelogFormat } from '@conventional-commits/parser';
-import { types } from 'conventional-commit-types';
-import { Config } from './config';
+import conventionalCommitTypes from 'conventional-commit-types' with { type: 'json' };
+import { Config } from './config.js';
 
-const commitTypes = Object.keys(types);
+const commitTypes = Object.keys(conventionalCommitTypes.types);
 const validTypeSyntaxRegex = /^.*: [^ ].*$/;
 
 export function isMessageSemantic({

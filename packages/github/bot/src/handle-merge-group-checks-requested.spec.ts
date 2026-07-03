@@ -1,7 +1,7 @@
 import { Context, ProbotOctokit } from 'probot';
-import { Status } from './status';
+import { Status } from './status.js';
 import nock, { Scope } from 'nock';
-import { handleMergeGroupChecksRequested } from './handle-merge-group-checks-requested';
+import { handleMergeGroupChecksRequested } from './handle-merge-group-checks-requested.js';
 
 function createContext(): Context<'merge_group.checks_requested'> {
   return new Context<'merge_group.checks_requested'>(

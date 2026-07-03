@@ -1,0 +1,20 @@
+parameters: { }
+environment: { }
+packages:
+  - name: github
+    shared: false
+    environment: { }
+    parameters: { }
+    annotations: { }
+    functions:
+      - name: bot
+        binary: false
+        main: ""
+        runtime: nodejs:24
+        web: true
+        webSecure: false
+        parameters: { }
+        environment: { }
+        annotations: { }
+        limits:
+          memory: 256

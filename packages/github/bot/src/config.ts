@@ -1,4 +1,4 @@
-import { types } from 'conventional-commit-types';
+import conventionalCommitTypes from 'conventional-commit-types' with { type: 'json' };
 
 export type Config = {
   enabled: boolean;
@@ -20,7 +20,7 @@ export const defaultConfig: Config = {
   titleAndCommits: false,
   anyCommit: false,
   scopes: null,
-  types: Object.keys(types),
+  types: Object.keys(conventionalCommitTypes.types),
   allowMergeCommits: false,
   allowRevertCommits: false,
   targetUrl: 'https://github.com/Ezard/semantic-prs',

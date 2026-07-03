@@ -20,9 +20,9 @@ jobs:
         uses: actions/cache@v6
         id: cache
         with:
-          path: functions/node_modules
-          key: node-${{ hashFiles('functions/package-lock.json') }}
+          path: packages/github/bot/node_modules
+          key: node-${{ hashFiles('packages/github/bot/package-lock.json') }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
-        working-directory: functions
+        working-directory: packages/github/bot

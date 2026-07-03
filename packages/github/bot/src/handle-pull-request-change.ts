@@ -4,10 +4,10 @@ import type {
   PullRequestSynchronizeEvent,
 } from '@octokit/webhooks-types';
 import type { Context } from 'probot';
-import { Config, defaultConfig } from './config';
-import { isMessageSemantic } from './is-message-semantic';
-import { Status } from './status';
-import { appName } from './app-name';
+import { Config, defaultConfig } from './config.js';
+import { isMessageSemantic } from './is-message-semantic.js';
+import { Status } from './status.js';
+import { appName } from './app-name.js';
 
 type PullRequestPayload = PullRequestOpenedEvent | PullRequestEditedEvent | PullRequestSynchronizeEvent;
 export type ContextEvent =
@@ -141,7 +141,7 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
     state: semanticState.getState(),
     target_url: config.targetUrl,
     description: semanticState.getDescription(),
-    context: appName.value(),
+    context: appName,
   };
   await context.octokit.rest.repos.createCommitStatus(context.repo(status));
 }
