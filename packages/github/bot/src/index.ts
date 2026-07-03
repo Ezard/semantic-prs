@@ -1,5 +1,3 @@
-// import { onRequest } from 'firebase-functions/https';
-// import { createNodeMiddleware, createProbot } from 'probot';
 import { createProbot } from 'probot';
 import { app } from './app.js';
 import { EventPayloadMap } from '@octokit/webhooks-types';
@@ -7,25 +5,13 @@ import { EventPayloadMap } from '@octokit/webhooks-types';
 const probot = createProbot();
 await probot.load(app);
 
-// export const semanticPrs = onRequest(
-//   {
-//     region: 'europe-west2',
-//   },
-//   (req, res) => {
-//     createNodeMiddleware(app, {
-//       probot: createProbot(),
-//       webhooksPath: '/',
-//     })(req, res);
-//   },
-// );
-
 interface DOEvent {
   http?: {
     headers?: Record<string, string>;
     method?: string;
     path?: string;
   };
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export async function main(event: DOEvent) {
@@ -55,7 +41,7 @@ export async function main(event: DOEvent) {
       statusCode: 200,
       body: { message: 'Webhook successfully processed.' },
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error handling webhook:', error);
 
     return {
