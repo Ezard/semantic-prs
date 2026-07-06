@@ -109,6 +109,61 @@ describe('isMessageSemantic', () => {
     expect(isSemantic).toEqual(true);
   });
 
+  it('should return true if the message is semantic and has a scope matching an allowed regex scope', () => {
+    const message = 'feat(mods/foo): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['mods/(\\w+)'],
+    })(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
+  it('should return true if the message is semantic and has a mix of allowed exact and regex scopes', () => {
+    const message = 'feat(auth,mods/foo): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['auth', 'mods/(\\w+)'],
+    })(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
+  it('should return false if the message scope only partially matches an allowed regex scope', () => {
+    const message = 'feat(mods/foo/bar): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['mods/(\\w+)'],
+    })(message);
+
+    expect(isSemantic).toEqual(false);
+  });
+
+  it('should return false instead of throwing if a configured regex scope is invalid', () => {
+    const message = 'feat(auth): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['['],
+    })(message);
+
+    expect(isSemantic).toEqual(false);
+  });
+
+  it('should return true if the message has an exact scope matching an invalid regex scope', () => {
+    const message = 'feat([): change foo to bar';
+
+    const isSemantic = isMessageSemantic({
+      ...defaultConfig,
+      scopes: ['['],
+    })(message);
+
+    expect(isSemantic).toEqual(true);
+  });
+
   it('should return false if the message is semantic and has a single disallowed scope and the type is valid', () => {
     const message = 'feat(auth): change foo to bar';
 
