@@ -48,6 +48,7 @@ describe('app', () => {
         name: 'pull_request',
         payload: {
           action,
+          ...(action === 'edited' ? { changes: { title: { from: 'old' } } } : {}),
           repository: {
             name: 'bar',
             owner: {

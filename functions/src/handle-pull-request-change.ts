@@ -1,6 +1,8 @@
 import type {
   PullRequestEditedEvent,
+  PullRequestEnqueuedEvent,
   PullRequestOpenedEvent,
+  PullRequestReopenedEvent,
   PullRequestSynchronizeEvent,
 } from '@octokit/webhooks-types';
 import type { Context } from 'probot';
@@ -9,7 +11,12 @@ import { isMessageSemantic } from './is-message-semantic';
 import { Status } from './status';
 import { appName } from './app-name';
 
-type PullRequestPayload = PullRequestOpenedEvent | PullRequestEditedEvent | PullRequestSynchronizeEvent;
+type PullRequestPayload =
+  | PullRequestOpenedEvent
+  | PullRequestReopenedEvent
+  | PullRequestEditedEvent
+  | PullRequestSynchronizeEvent
+  | PullRequestEnqueuedEvent;
 export type ContextEvent =
   | 'pull_request.opened'
   | 'pull_request.reopened'
@@ -40,6 +47,9 @@ async function checkIfCommitsAreSemantic(
 }
 
 export async function handlePullRequestChange(context: Context<ContextEvent>): Promise<void> {
+  if (context.payload.action === 'edited' && !context.payload.changes?.title && !context.payload.changes?.base) {
+    return;
+  }
   const { title, head } = (context.payload as PullRequestPayload).pull_request;
 
   const [config, commitMessages] = await Promise.all([
