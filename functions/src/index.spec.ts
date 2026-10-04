@@ -20,13 +20,13 @@ describe('semanticPrs', () => {
     jest.clearAllMocks();
   });
 
-  it('should use the europe-west2 region and allow public invocation', () => {
+  it('should use the us-central1 region and allow public invocation', () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('./index');
 
     expect(onRequest).toHaveBeenCalledWith(
       {
-        region: 'europe-west2',
+        region: 'us-central1',
         invoker: 'public',
       },
       expect.any(Function),
