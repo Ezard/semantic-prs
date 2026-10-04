@@ -41,10 +41,13 @@ async function checkIfCommitsAreSemantic(
 
 export async function handlePullRequestChange(context: Context<ContextEvent>): Promise<void> {
   const { title, head } = (context.payload as PullRequestPayload).pull_request;
-  const config = (await context.config<Config>('semantic.yml', defaultConfig)) as Config;
+
+  const [config, commitMessages] = await Promise.all([
+    context.config<Config>('semantic.yml', defaultConfig) as Promise<Config>,
+    getCommitMessages(context),
+  ]);
 
   const hasSemanticTitle = isMessageSemantic(config)(title);
-  const commitMessages = await getCommitMessages(context);
   const { someCommitsSemantic, allCommitsSemantic } = await checkIfCommitsAreSemantic(commitMessages, config);
   const numNonMergeCommits = commitMessages.filter(message => !message.startsWith('Merge')).length;
 
