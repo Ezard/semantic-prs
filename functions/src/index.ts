@@ -17,6 +17,7 @@ function getMiddleware() {
 export const semanticPrs = onRequest(
   {
     region: 'europe-west2',
+    invoker: 'public',
   },
   (req, res) => {
     getMiddleware()(req, res);

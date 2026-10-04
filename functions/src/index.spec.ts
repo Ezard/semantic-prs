@@ -20,11 +20,17 @@ describe('semanticPrs', () => {
     jest.clearAllMocks();
   });
 
-  it('should use the europe-west2 region', () => {
+  it('should use the europe-west2 region and allow public invocation', () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('./index');
 
-    expect(onRequest).toHaveBeenCalledWith({ region: 'europe-west2' }, expect.any(Function));
+    expect(onRequest).toHaveBeenCalledWith(
+      {
+        region: 'europe-west2',
+        invoker: 'public',
+      },
+      expect.any(Function),
+    );
   });
 
   it('should reuse the middleware instance across multiple invocations', () => {
