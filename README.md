@@ -51,9 +51,11 @@ types: # default: feat | fix | docs | style | refactor | perf | test | build | c
 
 ```yaml
 # The values allowed for the "scope" part of the PR title/commit message. e.g. for a PR title/commit message of "feat(awesome-feature): add some stuff", the type would be "awesome-feature"
+# Scopes can be exact strings or regex patterns. The app will first try an exact match, then treat the scope as a regex pattern.
+# For example, "COR-" will match any scope starting with "COR-" like "COR-1234", "COR-5678", etc.
 scopes: # default: any value
-  - <string>
-  - <string>
+  - <string>      # Can be an exact match like "auth" or "frontend"
+  - <string>      # Can be a regex pattern like "COR-" or "JIRA-"
   - ...
 ```
 
