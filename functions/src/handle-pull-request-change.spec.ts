@@ -4,7 +4,7 @@ import type { ContextEvent } from './handle-pull-request-change';
 import { handlePullRequestChange } from './handle-pull-request-change';
 import { Status } from './status';
 
-function createContext(title: string): Context<ContextEvent> {
+function createContext(title: string, payloadOverrides?: Record<string, unknown>): Context<ContextEvent> {
   return new Context<ContextEvent>(
     {
       id: 'abc123',
@@ -29,6 +29,7 @@ function createContext(title: string): Context<ContextEvent> {
             sha: 'def456',
           },
         },
+        ...payloadOverrides,
       },
     },
     new ProbotOctokit(),
@@ -45,8 +46,9 @@ async function setupTest(
     description: Status['description'];
     target_url?: Status['target_url'];
   },
+  payloadOverrides?: Record<string, unknown>,
 ): Promise<{ context: Context<ContextEvent>; scope: Scope }> {
-  const context: Context<ContextEvent> = createContext(title);
+  const context: Context<ContextEvent> = createContext(title, payloadOverrides);
   const scope = nock('https://api.github.com', { allowUnmocked: false })
     .get('/repos/foo/bar/contents/.github%2Fsemantic.yml')
     .reply(200, configYaml)
@@ -85,6 +87,125 @@ describe('handlePullRequestChange', () => {
   afterAll(() => {
     nock.enableNetConnect();
     delete process.env.APP_NAME;
+  });
+
+  describe('when the pull request action is "edited"', () => {
+    describe('when the title was not edited', () => {
+      it('should not perform any checks if only the body was edited', async () => {
+        const context = createContext(SEMANTIC_TITLE, {
+          action: 'edited',
+          changes: {
+            body: {
+              from: 'old description',
+            },
+          },
+        });
+
+        await handlePullRequestChange(context);
+
+        expect(nock.activeMocks()).toHaveLength(0);
+      });
+
+      it('should not perform any checks if changes is undefined', async () => {
+        const context = createContext(SEMANTIC_TITLE, {
+          action: 'edited',
+        });
+
+        await handlePullRequestChange(context);
+
+        expect(nock.activeMocks()).toHaveLength(0);
+      });
+
+      it('should not perform any checks if changes does not contain title', async () => {
+        const context = createContext(SEMANTIC_TITLE, {
+          action: 'edited',
+          changes: {},
+        });
+
+        await handlePullRequestChange(context);
+
+        expect(nock.activeMocks()).toHaveLength(0);
+      });
+    });
+
+    describe('when the base branch was edited', () => {
+      it('should perform checks and set status', async () => {
+        const { context, scope } = await setupTest(
+          SEMANTIC_TITLE,
+          SEMANTIC_COMMIT_MESSAGES,
+          '',
+          {
+            state: 'success',
+            description: 'ready to be squashed',
+          },
+          {
+            action: 'edited',
+            changes: {
+              base: {
+                ref: {
+                  from: 'old-base',
+                },
+                sha: {
+                  from: '123456',
+                },
+              },
+            },
+          },
+        );
+
+        await handlePullRequestChange(context);
+
+        expect(scope.isDone()).toEqual(true);
+      });
+    });
+
+    describe('when the title was edited', () => {
+      it('should perform checks and set status', async () => {
+        const { context, scope } = await setupTest(
+          SEMANTIC_TITLE,
+          SEMANTIC_COMMIT_MESSAGES,
+          '',
+          {
+            state: 'success',
+            description: 'ready to be squashed',
+          },
+          {
+            action: 'edited',
+            changes: {
+              title: {
+                from: UNSEMANTIC_TITLE,
+              },
+            },
+          },
+        );
+
+        await handlePullRequestChange(context);
+
+        expect(scope.isDone()).toEqual(true);
+      });
+    });
+  });
+
+  describe('when the pull request action is not "edited"', () => {
+    it.each(['opened', 'reopened', 'synchronize', 'enqueued'])(
+      'should perform checks and set status for %s events',
+      async action => {
+        const { context, scope } = await setupTest(
+          SEMANTIC_TITLE,
+          SEMANTIC_COMMIT_MESSAGES,
+          '',
+          {
+            state: 'success',
+            description: 'ready to be squashed',
+          },
+          { action },
+        );
+
+        await handlePullRequestChange(context);
+
+        expect(scope.isDone()).toEqual(true);
+      },
+    );
   });
 
   describe('when "enabled" is set to false in config', () => {
