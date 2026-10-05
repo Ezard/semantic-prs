@@ -1,6 +1,12 @@
+import * as tracer from '@google-cloud/trace-agent';
 import { createNodeMiddleware } from 'probot';
 import { onRequest } from 'firebase-functions/https';
 import { ServerResponse } from 'node:http';
+
+jest.mock('@google-cloud/trace-agent', () => ({
+  start: jest.fn(),
+  get: jest.fn(),
+}));
 
 jest.mock('firebase-functions/https', () => ({
   onRequest: jest.fn((_, handler) => handler),
@@ -48,6 +54,32 @@ describe('semanticPrs', () => {
       // 2nd invocation reuses cached middleware
       semanticPrs(mockReq, mockRes);
       expect(createNodeMiddleware).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('trace-agent initialization', () => {
+    const originalEnv = process.env.NODE_ENV;
+
+    afterEach(() => {
+      process.env.NODE_ENV = originalEnv;
+    });
+
+    it('should not start the trace-agent in test environment', () => {
+      process.env.NODE_ENV = 'test';
+      jest.isolateModules(() => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        require('./index');
+        expect(tracer.start).not.toHaveBeenCalled();
+      });
+    });
+
+    it('should start the trace-agent when not in test environment', () => {
+      process.env.NODE_ENV = 'production';
+      jest.isolateModules(() => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        require('./index');
+        expect(tracer.start).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

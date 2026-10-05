@@ -1,3 +1,9 @@
+import * as tracer from '@google-cloud/trace-agent';
+
+if (process.env.NODE_ENV !== 'test') {
+  tracer.start();
+}
+
 import { onRequest } from 'firebase-functions/https';
 import { createNodeMiddleware, createProbot } from 'probot';
 import { app } from './app';
