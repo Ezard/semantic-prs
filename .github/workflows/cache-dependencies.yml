@@ -7,7 +7,7 @@ on:
 
 jobs:
   cache-dependencies:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: Cache Dependencies
     steps:
       - name: Checkout code
