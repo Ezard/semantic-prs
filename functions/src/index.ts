@@ -26,6 +26,14 @@ export const semanticPrs = onRequest(
     invoker: 'public',
   },
   (req, res) => {
-    getMiddleware()(req, res);
+    const api = tracer.get();
+    const traceContext = api.propagation.extract(key => req.headers?.[key] as string | undefined);
+
+    api.runInRootSpan({ name: 'semanticPrs', traceContext }, root => {
+      res.on('finish', () => {
+        root.endSpan();
+      });
+      getMiddleware()(req, res);
+    });
   },
 );
