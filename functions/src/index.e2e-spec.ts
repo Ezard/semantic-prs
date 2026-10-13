@@ -14,7 +14,7 @@ describe('semanticPrs', () => {
     const { app } = require('./app');
 
     const req = {};
-    const res = { writeHead: jest.fn(), end: jest.fn() };
+    const res = { writeHead: jest.fn(), end: jest.fn(), on: jest.fn() };
 
     semanticPrs(req, res);
 

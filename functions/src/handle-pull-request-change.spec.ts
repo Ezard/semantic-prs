@@ -1,3 +1,4 @@
+import * as tracer from '@google-cloud/trace-agent';
 import nock, { type Scope } from 'nock';
 import { Context, ProbotOctokit } from 'probot';
 import type { ContextEvent } from './handle-pull-request-change';
@@ -866,6 +867,68 @@ describe('handlePullRequestChange', () => {
       await handlePullRequestChange(context);
 
       expect(scope.isDone()).toEqual(true);
+    });
+  });
+  describe('performance tracing', () => {
+    let mockEndSpan: jest.Mock;
+    let mockCreateChildSpan: jest.Mock;
+    let getSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      mockEndSpan = jest.fn();
+      mockCreateChildSpan = jest.fn(() => ({ endSpan: mockEndSpan }));
+      getSpy = jest.spyOn(tracer, 'get').mockReturnValue({
+        createChildSpan: mockCreateChildSpan,
+      } as unknown as tracer.PluginTypes.Tracer);
+    });
+
+    afterEach(() => {
+      getSpy.mockRestore();
+    });
+
+    it('should create child spans for context.config, getCommitMessages, and createCommitStatus and close them', async () => {
+      const { context, scope } = await setupTest(SEMANTIC_TITLE, SEMANTIC_COMMIT_MESSAGES, '', {
+        state: 'success',
+        description: 'ready to be squashed',
+      });
+
+      await handlePullRequestChange(context);
+
+      expect(scope.isDone()).toEqual(true);
+      expect(mockCreateChildSpan).toHaveBeenCalledWith({ name: 'context.config' });
+      expect(mockCreateChildSpan).toHaveBeenCalledWith({ name: 'getCommitMessages' });
+      expect(mockCreateChildSpan).toHaveBeenCalledWith({ name: 'createCommitStatus' });
+      expect(mockEndSpan).toHaveBeenCalledTimes(3);
+    });
+
+    it('should close the span even if an API call fails', async () => {
+      const context = createContext(SEMANTIC_TITLE);
+      nock('https://api.github.com')
+        .get('/repos/foo/bar/contents/.github%2Fsemantic.yml')
+        .reply(200, '')
+        .get('/repos/foo/bar/pulls/123/commits')
+        .reply(400, { message: 'Bad Request' });
+
+      await expect(handlePullRequestChange(context)).rejects.toThrow();
+
+      expect(mockCreateChildSpan).toHaveBeenCalledWith({ name: 'context.config' });
+      expect(mockCreateChildSpan).toHaveBeenCalledWith({ name: 'getCommitMessages' });
+      expect(mockEndSpan).toHaveBeenCalled();
+    });
+
+    it('should not create spans if the event returns early', async () => {
+      const context = createContext(SEMANTIC_TITLE, {
+        action: 'edited',
+        changes: {
+          body: {
+            from: 'old body',
+          },
+        },
+      });
+
+      await handlePullRequestChange(context);
+
+      expect(mockCreateChildSpan).not.toHaveBeenCalled();
     });
   });
 });

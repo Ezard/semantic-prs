@@ -1,3 +1,4 @@
+import * as tracer from '@google-cloud/trace-agent';
 import type {
   PullRequestEditedEvent,
   PullRequestEnqueuedEvent,
@@ -46,6 +47,15 @@ async function checkIfCommitsAreSemantic(
   };
 }
 
+async function traceOperation<T>(name: string, fn: () => Promise<T>): Promise<T> {
+  const span = tracer.get().createChildSpan({ name });
+  try {
+    return await fn();
+  } finally {
+    span.endSpan();
+  }
+}
+
 export async function handlePullRequestChange(context: Context<ContextEvent>): Promise<void> {
   if (context.payload.action === 'edited' && !context.payload.changes?.title && !context.payload.changes?.base) {
     return;
@@ -53,8 +63,8 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
   const { title, head } = (context.payload as PullRequestPayload).pull_request;
 
   const [config, commitMessages] = await Promise.all([
-    context.config<Config>('semantic.yml', defaultConfig) as Promise<Config>,
-    getCommitMessages(context),
+    traceOperation('context.config', () => context.config<Config>('semantic.yml', defaultConfig) as Promise<Config>),
+    traceOperation('getCommitMessages', () => getCommitMessages(context)),
   ]);
 
   const hasSemanticTitle = isMessageSemantic(config)(title);
@@ -156,5 +166,5 @@ export async function handlePullRequestChange(context: Context<ContextEvent>): P
     description: semanticState.getDescription(),
     context: appName.value(),
   };
-  await context.octokit.rest.repos.createCommitStatus(context.repo(status));
+  await traceOperation('createCommitStatus', () => context.octokit.rest.repos.createCommitStatus(context.repo(status)));
 }
