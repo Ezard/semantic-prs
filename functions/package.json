@@ -58,7 +58,7 @@
     "firebase-tools": "15.36.0",
     "globals": "17.14.0",
     "jest": "30.5.2",
-    "nock": "14.0.17",
+    "nock": "15.0.6",
     "prettier": "3.10.1",
     "smee-client": "5.0.0",
     "ts-jest": "29.4.15",
