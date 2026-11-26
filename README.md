@@ -51,10 +51,18 @@ types: # default: feat | fix | docs | style | refactor | perf | test | build | c
 
 ```yaml
 # The values allowed for the "scope" part of the PR title/commit message. e.g. for a PR title/commit message of "feat(awesome-feature): add some stuff", the type would be "awesome-feature"
+# Values can be exact scopes or regular expressions.
 scopes: # default: any value
   - <string>
   - <string>
   - ...
+```
+
+```yaml
+# Regular expression scopes match the full scope value.
+# For example, this matches "feat(mods/foo): ..." and "feat(mods/bar): ..."
+scopes:
+  - 'mods/(\\w+)'
 ```
 
 ```yaml
